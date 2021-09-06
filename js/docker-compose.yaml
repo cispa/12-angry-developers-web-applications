@@ -1,0 +1,5 @@
+js-webapp:
+  build: .
+  command: "cd /app && node app.js"
+  ports:
+  - "8080:80"

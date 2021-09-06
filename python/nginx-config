@@ -1,0 +1,15 @@
+server {
+
+   listen 80;
+   server_name _;
+   charset utf-8;
+
+   location /static/ {
+       alias /app/app/static/;
+   }
+
+   location / {
+       uwsgi_pass unix:/run/uwsgi/app/app/socket;
+       include uwsgi_params;
+   }
+}

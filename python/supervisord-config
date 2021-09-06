@@ -1,0 +1,24 @@
+[supervisord]
+nodaemon=true
+
+[program:uwsgi]
+command=/usr/bin/uwsgi --ini /etc/uwsgi/apps-enabled/app.ini -s /run/uwsgi/app/app/socket
+stdout_logfile=/logs/uwsgi.log
+stdout_logfile_maxbytes=5MB
+stdout_logfile_backups=5
+stderr_logfile=/dev/stderr
+stderr_logfile_maxbytes=0
+
+[program:nginx]
+command=/usr/sbin/nginx -g "daemon off;"
+autostart=true
+autorestart=true
+stopsignal=QUIT
+exitcodes=0
+numprocs=1
+startsecs=10
+startretries=3
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=0
+stderr_logfile=/dev/stderr
+stderr_logfile_maxbytes=0

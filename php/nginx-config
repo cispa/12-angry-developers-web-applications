@@ -1,0 +1,22 @@
+server {
+
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+
+    root /var/www/;
+    index index.php;
+
+    location /static/ {
+        alias /var/www/static/;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+    }
+
+    location / {
+        return 301 $scheme://$host:8080/index.php;
+    }
+}

@@ -1,0 +1,7 @@
+php-webapp:
+  build: .
+  environment:
+  - TZ=Europe/Berlin
+  - DEBIAN_FRONTEND=noninteractive
+  ports:
+  - "8080:80"

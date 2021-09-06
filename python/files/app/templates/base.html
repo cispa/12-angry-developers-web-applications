@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notepad WebApp</title>
+    <link rel="shortcut icon" type="image/png" href="/static/img/favicon.ico"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script>
+
+        function submitAsJson(event) {
+            // Stop the regular form submission
+            event.preventDefault();
+            // Convert Inputs to JS Object
+            var data = {};
+            var form = event.target || event.srcElement;
+            for (var i = 0; i < form.length; i++) {
+                if (form[i].name) {
+                    data[form[i].name] = form[i].value;
+                }
+            }
+            // Send to JS Object to the endpoint as JSON string
+            var xhr = new XMLHttpRequest();
+            xhr.open(form.method, form.action, true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    window.location.reload();
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        }
+
+    </script>
+    <style>
+
+        body {
+            background: url('/static/img/background.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+
+    </style>
+</head>
+<body>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-info">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% block content %}
+{% endblock %}
+</body>
+</html>
