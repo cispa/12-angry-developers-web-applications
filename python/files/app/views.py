@@ -49,8 +49,8 @@ def registration_view(request):
         messages.error(request, f'Received Malformed JSON: {str(e)}')
         return HttpResponse('', status=500)
     # Check parameters from JSON
-    name = data['email']
-    password = data['pwd']
+    name = data['username']
+    password = data['password']
     if name is None or password is None:
         messages.warning(request, 'Missing Parameters!')
         return HttpResponse('', status=400)
@@ -79,8 +79,8 @@ def login_view(request):
         messages.error(request, f'Received Malformed JSON: {str(e)}')
         return HttpResponse('', status=500)
     # Check parameters from JSON
-    name = data['email']
-    password = data['pwd']
+    name = data['username']
+    password = data['password']
     if name is None or password is None:
         messages.warning(request, 'Missing Parameters!')
         return HttpResponse('', status=400)
